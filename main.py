@@ -6,8 +6,6 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg, NavigationToolbar2Tk)
-# Implement the default Matplotlib key bindings.
-# from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
 from tkinter.ttk import Combobox
 import datetime
@@ -20,16 +18,6 @@ from collections import Counter
 
 RECORDS_URL = 'https://lmnad.nntu.ru/api/v1/records/'
 API_KEY = 'd837d31970deb03ee35c416c5a66be1bba9f56d3'
-map_types = []
-graphic_types = []
-satellite_types = []
-records_def_types = []
-table_types = []
-map_types_kasp = []
-graphic_types_kasp = []
-satellite_types_kasp = []
-record_types_kasp = []
-table_types_kasp = []
 x_label = ['Карта', 'График', 'Спутниковый снимок', 'Запись', 'Таблица']
 labels = [1, 2, 3, 4, 5]
 label = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь',
@@ -177,13 +165,7 @@ def plot_bars_year1(img_area, combobox):
         sea_years_y.append(y)
         sea_years_x.append(i)
     img_area.bar(sea_years_x, sea_years_y, tick_label=sea_years_x)
-    # x_formatter = FixedFormatter(["1970", "1980", "1990", "2000", "2010", "2020"])
-    # x_locator = FixedLocator([1970, 1980, 1990, 2000, 2010, 2020])
-    # img_area.xaxis.set_major_formatter(x_formatter)
     img_area.xaxis.set_major_locator(MaxNLocator(max_year - min_year + 1))
-    # img_area.xaxis.set_major_locator(ticker.MultipleLocator(10))
-    # my_ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-    # img_area.xaxis.set_minor_locator(AutoMinorLocator())
     img_area.tick_params(axis="x", labelrotation=90, labelsize=6.5)
     img_area.set_xlabel('Года')
     img_area.set_ylabel('Количество наблюдений')
@@ -261,8 +243,7 @@ if __name__ == '__main__':
     # fetch_records()
     records = load_records()
 
-# black_sea_map_types = []
-# black_sea_graphic_types = []
+
 
 if __name__ == '__main__':
     black_sea_name = "Чёрное море"
@@ -286,11 +267,10 @@ if __name__ == '__main__':
     mir_okean_name = "Мировой океан"
 
     window = tkinter.Tk()
-    window.wm_title("IGWAtlas_stats")
+    window.wm_title("IGWAtlas_статистика")
 
     count_records = records['count']
-    print(count_records)
-
+    
     results_records = records['results']
 
     sea_dic = dict()
@@ -319,11 +299,6 @@ if __name__ == '__main__':
                     sea_dic[sea_name]['month'][date_time_obj.month] = 0
                 sea_dic[sea_name]['month'][date_time_obj.month] += 1
 
-    # sea_years_dic = sea_dic["sea_name"]
-    # sea_years_list = sea_years_dic.keys()
-    # sea_years_list.count()
-    # sea_years_dic["2020"]
-
     canvas, img_area_1, img_area_2 = init_plot_bar()
 
     button_type = tkinter.Button(master=window, text='По типам наблюдений', command=plot_bars)
@@ -339,14 +314,14 @@ if __name__ == '__main__':
         black_sea_name, kasp_sea_name, balt_sea_name, barenz_sea_name, kar_sea_name,
         sea_lapt_name, bering_sea_name, okhotsk_sea_name, japan_sea_name, karib_sea_name, arav_sea_name,
         south_kit_sea_name, ist_kit_sea_name, tas_sea_name, mir_okean_name)
-    ComboBox2.current(0)  # установите вариант по умолчанию
+    ComboBox2.current(0)  
     ComboBox2.pack(side=tkinter.RIGHT)
     ComboBox1 = Combobox(master=window)
     ComboBox1['values'] = (
         black_sea_name, kasp_sea_name, balt_sea_name, barenz_sea_name, kar_sea_name,
         sea_lapt_name, bering_sea_name, okhotsk_sea_name, japan_sea_name, karib_sea_name, arav_sea_name,
         south_kit_sea_name, ist_kit_sea_name, tas_sea_name, mir_okean_name)
-    ComboBox1.current(0)  # установите вариант по умолчанию
+    ComboBox1.current(0)  
     ComboBox1.pack()
     tkinter.mainloop()
 

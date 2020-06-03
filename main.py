@@ -240,7 +240,7 @@ def get_sea_name(point_get):
 
 
 if __name__ == '__main__':
-    # fetch_records()
+    fetch_records()
     records = load_records()
 
 

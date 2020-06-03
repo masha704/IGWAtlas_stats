@@ -296,11 +296,14 @@ def init_plot_bar():
 def plot_season():
     try:
         plot_bars_season(img_area_1, ComboBox1.get())
-        plot_bars_season(img_area_2, ComboBox2.get())
-
-        canvas.draw()
     except KeyError:
-        mb.showerror('IGWAtlas Статистика', 'В выбранном море записей не существует')
+        mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox1.get()))
+    try:
+        plot_bars_season(img_area_2, ComboBox2.get())
+    except KeyError:
+        mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox2.get()))
+
+    canvas.draw()
 
 
 def plot_bars_season(img_area, cb_sea_name):
@@ -325,11 +328,14 @@ def plot_bars_season(img_area, cb_sea_name):
 def plot_month():
     try:
         plot_bars_month(img_area_1, ComboBox1.get())
-        plot_bars_month(img_area_2, ComboBox2.get())
-
-        canvas.draw()
     except KeyError:
-        mb.showerror('IGWAtlas Статистика', 'В выбранном море записей не существует')
+        mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox1.get()))
+    try:
+        plot_bars_month(img_area_2, ComboBox2.get())
+    except KeyError:
+        mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox2.get()))
+
+    canvas.draw()
 
 
 def plot_bars_month(img_area, cb_sea_name):
@@ -346,11 +352,14 @@ def plot_bars_month(img_area, cb_sea_name):
 def plot_bars_year():
     try:
         plot_bars_year1(img_area_1, ComboBox1.get())
-        plot_bars_year1(img_area_2, ComboBox2.get())
-
-        canvas.draw()
     except KeyError:
-        mb.showerror('IGWAtlas Статистика', 'В выбранном море записей не существует')
+        mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox1.get()))
+    try:
+        plot_bars_year1(img_area_2, ComboBox2.get())
+    except KeyError:
+        mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox2.get()))
+
+    canvas.draw()
 
 
 def plot_bars_year1(img_area, cb_sea_name):
@@ -373,11 +382,14 @@ def plot_bars_year1(img_area, cb_sea_name):
 def plot_bars():
     try:
         plot_bars_type(img_area_1, ComboBox1.get())
-        plot_bars_type(img_area_2, ComboBox2.get())
-
-        canvas.draw()
     except KeyError:
-        mb.showerror('IGWAtlas Статистика', 'В выбранном море записей не существует')
+        mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox1.get()))
+    try:
+        plot_bars_type(img_area_2, ComboBox2.get())
+    except KeyError:
+        mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox2.get()))
+
+    canvas.draw()
 
 
 def plot_bars_type(img_area, cb_sea_name):

@@ -298,15 +298,22 @@ def plot_season():
         plot_bars_season(img_area_1, ComboBox1.get())
     except KeyError:
         mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox1.get()))
+    max = max_value_seas
     try:
         plot_bars_season(img_area_2, ComboBox2.get())
     except KeyError:
         mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox2.get()))
-
+    if max_value_seas > max:
+        max = max_value_seas
+    print(max)
+    img_area_1.set_ylim(0, max+1)
+    img_area_2.set_ylim(0, max+1)
     canvas.draw()
 
 
 def plot_bars_season(img_area, cb_sea_name):
+    global max_value_seas
+    max_value_seas = 0
     winter_count, spring_count, summer_count, autumn_count = 0, 0, 0, 0
     for month, value in sea_stats[cb_sea_name]['month'].items():
         if month in WINTER_MONTHS:
@@ -317,6 +324,7 @@ def plot_bars_season(img_area, cb_sea_name):
             summer_count += value
         elif month in AUTUMN_MONTHS:
             autumn_count += value
+    max_value_seas = max(winter_count, spring_count, summer_count, autumn_count)
 
     img_area.cla()
     img_area.bar(SEASONS_X, [winter_count, spring_count, summer_count, autumn_count], tick_label=SEASONS)
@@ -330,17 +338,22 @@ def plot_month():
         plot_bars_month(img_area_1, ComboBox1.get())
     except KeyError:
         mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox1.get()))
+    max = max_value_month
     try:
         plot_bars_month(img_area_2, ComboBox2.get())
     except KeyError:
         mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox2.get()))
-
+    if max_value_month > max:
+        max = max_value_month
+    img_area_1.set_ylim(0, max + 1)
+    img_area_2.set_ylim(0, max + 1)
     canvas.draw()
 
 
 def plot_bars_month(img_area, cb_sea_name):
+    global max_value_month
     sea_month_y = [count for record_type, count in sorted(sea_stats[cb_sea_name]['month'].items())]
-
+    max_value_month = max(sea_month_y)
     img_area.cla()
     img_area.bar(MONTHS_X, sea_month_y, tick_label=MONTHS)
     img_area.tick_params(axis="x", labelrotation=50)
@@ -354,15 +367,20 @@ def plot_bars_year():
         plot_bars_year1(img_area_1, ComboBox1.get())
     except KeyError:
         mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox1.get()))
+    max = max_value_year
     try:
         plot_bars_year1(img_area_2, ComboBox2.get())
     except KeyError:
         mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox2.get()))
-
+    if max_value_year > max:
+        max = max_value_year
+    img_area_1.set_ylim(0, max + 1)
+    img_area_2.set_ylim(0, max + 1)
     canvas.draw()
 
 
 def plot_bars_year1(img_area, cb_sea_name):
+    global max_value_year
     # generate dict with zero values
     init_range_year = {year: 0 for year in range(sea_stats['min_year'].year, sea_stats['max_year'].year)}
 
@@ -371,6 +389,7 @@ def plot_bars_year1(img_area, cb_sea_name):
 
     sea_years_y = [year for year, value in sorted(sea_years.items())]
     sea_years_x = [value for year, value in sorted(sea_years.items())]
+    max_value_year = max(sea_years_x)
 
     img_area.cla()
     img_area.bar(sea_years_y, sea_years_x)
@@ -384,16 +403,22 @@ def plot_bars():
         plot_bars_type(img_area_1, ComboBox1.get())
     except KeyError:
         mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox1.get()))
+    max = max_value_type
     try:
         plot_bars_type(img_area_2, ComboBox2.get())
     except KeyError:
         mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox2.get()))
-
+    if max_value_type > max:
+        max = max_value_type
+    img_area_1.set_ylim(0, max + 1)
+    img_area_2.set_ylim(0, max + 1)
     canvas.draw()
 
 
 def plot_bars_type(img_area, cb_sea_name):
+    global max_value_type
     sea_type_y = [count for record_type, count in sorted(sea_stats[cb_sea_name]['types'].items())]
+    max_value_type = max(sea_type_y)
 
     img_area.cla()
     img_area.bar(RECORD_TYPES_X, sea_type_y, tick_label=RECORD_TYPES)
@@ -443,9 +468,11 @@ def create_info():
     l1 = Label(text='Total records: {}'.format(records['count']), font="Arial 14", master=root, justify=LEFT)
     l2 = Label(text='Дата последнего обновления:\n{}'.format(date_for_info['date']), font="Arial 14", master=root)
     l3 = Label(text='Для отзывов и предложений:\nmanikina704@gmail.com', font="Arial 14", master=root)
+    l4 = Label(text='Версия приложения:\n1.2.1', master=root, font="Arial 14")
     l1.pack()
     l2.pack()
     l3.pack()
+    l4.pack()
     root.wm_title("IGWAtlas Статистика")
     root.mainloop()
     root.quit()

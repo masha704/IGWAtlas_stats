@@ -5,7 +5,7 @@
 
 1. Через командную строку Windows устанавливаем pyinstaller:
    Команда:
-   >pip install pyinstaller
+   pip install pyinstaller
 2. В командной строке переходим в папку, где находится файл
    Команда:
    cd c:\... 

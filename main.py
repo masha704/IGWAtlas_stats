@@ -17,6 +17,9 @@ import matplotlib.gridspec as gridspec
 import os
 import os.path
 
+APP_VERSION = '1.2.1'
+EMAIL_TO_DEVELOPER = 'manikina704@gmail.com'
+
 RECORDS_URL = 'https://lmnad.nntu.ru/api/v1/records/'
 API_KEY = 'd837d31970deb03ee35c416c5a66be1bba9f56d3'
 
@@ -258,22 +261,6 @@ def get_years_and_months(date_time_obj, sea_types):
     sea_types['month'][date_time_obj.month] += 1
 
 
-def _quit():
-    window.quit()
-    window.destroy()
-
-
-def init_menu_bar():
-    menu = Menu(window)
-    # Add button 'Exit'
-    new_item = Menu(menu, tearoff=0)
-    new_item.add_command(label='Exit', command=_quit)
-
-    menu.add_cascade(label='File', menu=new_item)
-
-    window.config(menu=menu)
-
-
 def init_plot_bar():
     '''fig = plt.figure(constrained_layout=True, figsize=[8, 4])
     spec2 = gridspec.GridSpec(ncols=2, nrows=1, figure=fig)
@@ -305,7 +292,6 @@ def plot_season():
         mb.showerror('IGWAtlas Статистика', 'В {} записей не существует'.format(ComboBox2.get()))
     if max_value_seas > max:
         max = max_value_seas
-    print(max)
     img_area_1.set_ylim(0, max+1)
     img_area_2.set_ylim(0, max+1)
     canvas.draw()
@@ -467,8 +453,8 @@ def create_info():
     date_for_info = load_date()
     l1 = Label(text='Total records: {}'.format(records['count']), font="Arial 14", master=root, justify=LEFT)
     l2 = Label(text='Дата последнего обновления:\n{}'.format(date_for_info['date']), font="Arial 14", master=root)
-    l3 = Label(text='Для отзывов и предложений:\nmanikina704@gmail.com', font="Arial 14", master=root)
-    l4 = Label(text='Версия приложения:\n1.2.1', master=root, font="Arial 14")
+    l3 = Label(text='Для отзывов и предложений:\n{}'.format(EMAIL_TO_DEVELOPER), font="Arial 14", master=root)
+    l4 = Label(text='Версия приложения:\n{}'.format(APP_VERSION), master=root, font="Arial 14")
     l1.pack()
     l2.pack()
     l3.pack()
@@ -545,12 +531,11 @@ if __name__ == '__main__':
         print('IGWAtlas Statistic ready for work')
     else:
         mb.showerror('IGWAtlas Статистика Offline', 'Ошибка при загрузке данных')
-    menu = Menu(window)
-    submenu = Menu(window)
-    window.config(menu=menu)
-    submenu.add_command(label="info", command=create_info)
-    submenu.add_command(label="Обновить данные", command=create_start_dowload)
-    menu.add_cascade(label="about", menu=submenu)
 
+    menu = Menu(window)
+    menu.add_command(label="О программе", command=create_info)
+    menu.add_command(label="Обновить данные", command=create_start_dowload)
+
+    window.config(menu=menu)
     window.protocol("WM_DELETE_WINDOW", on_closing)
     tkinter.mainloop()

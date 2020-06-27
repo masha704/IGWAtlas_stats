@@ -52,3 +52,5 @@ wheels/
 
 # json files
 *.json
+
+*.spec

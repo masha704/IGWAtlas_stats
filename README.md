@@ -3,15 +3,17 @@
 Приложение с графическим интерфейсом для анализа и визуализации статистики по
 [базе данных внутренних волн в Мировом океане](https://lmnad.nntu.ru/en/igwatlas/)
 
-Инструкция по созданию .EXE файла на windows:
+Инструкция по созданию `.EXE` файла на windows:
 
 1. Через командную строку Windows устанавливаем pyinstaller:
-   Команда:
-   pip install pyinstaller
-2. В командной строке переходим в папку, где находится файл
-   Команда:
-   cd c:\... 
-3. Затем в командной строке набираем команду
-   Команда:
-   pyinstaller --onefile example.py 
-   Вместо exapmle.py используем имя файла, из которого нужно создать exe файл.
+    ```
+    pip install pyinstaller
+    ```
+2. В командной строке переходим в папку, где находится файл:
+   ```
+   cd c:\IGWAtlas_stats 
+   ```
+3. В командной строке набираем команду
+   ```
+   pyinstaller --windowed --hidden-import=pkg_resources.py2_warn --onefile --name="IGWAtlas_Stats" --icon="images/app.ico" --version-file version.txt main.py 
+   ```
